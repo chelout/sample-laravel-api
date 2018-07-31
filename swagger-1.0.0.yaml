@@ -1,0 +1,439 @@
+swagger: "2.0"
+info:
+  description: Sample API
+  version: 1.0.0
+  title: Sample API
+  contact:
+    email: chelout@gmail.com
+host: sample-api.test
+schemes:
+  - http
+  - https
+basePath: /api
+paths:
+  /posts:
+    get:
+      tags:
+      - posts
+      summary: Get posts list
+      operationId: getPosts
+      description: Get posts list searched by query with offset and limit.
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      parameters:
+      - in: query
+        name: offset
+        description: Number of posts to skip for pagination
+        type: integer
+        format: int32
+        minimum: 0
+      - in: query
+        name: limit
+        description: Maximum number of posts to return
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 100
+      - in: query
+        name: q
+        description: Search string
+        type: string
+      responses:
+        200:
+          description: Results
+          schema:
+            $ref: "#/definitions/Posts"
+        401:
+          description: Unauthenticated
+          schema:
+            $ref: "#/definitions/Error"
+        422:
+          description: Invalid data supplied
+          schema:
+            $ref: "#/definitions/Error"
+    post:
+      tags:
+      - posts
+      summary: Adds post
+      operationId: addPost
+      description: Adds new post
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      parameters:
+      - name: post
+        in: body
+        description: The post to create.
+        schema:
+          $ref: "#/definitions/PostData"
+      responses:
+        201:
+          description: Post created
+          schema:
+            $ref: "#/definitions/Post"
+        404:
+          description: Post not found
+          schema:
+            $ref: "#/definitions/Error"
+        422:
+          description: Invalid data supplied
+          schema:
+            $ref: "#/definitions/Error"
+  /posts/{postId}:
+    get:
+      tags:
+      - posts
+      summary: Find post by ID
+      operationId: getPostById
+      description: Returns a single post
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      parameters:
+      - name: postId
+        in: path
+        description: ID of post to return
+        required: true
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Post"
+        404:
+          description: Post not found
+          schema:
+            $ref: "#/definitions/Error"
+    put:
+      tags:
+      - posts
+      summary: Updates post
+      operationId: updatePost
+      description: Updates post
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      parameters:
+      - name: postId
+        in: path
+        description: post ID
+        required: true
+        type: integer
+        format: int32
+      - name: post
+        in: body
+        description: The post to update.
+        schema:
+          $ref: "#/definitions/PostData"
+      responses:
+        201:
+          description: post created
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthenticated
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Action is unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        422:
+          description: Invalid data supplied
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      tags:
+      - posts
+      summary: Deletes a post
+      description: Delete post
+      operationId: deletePost
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      parameters:
+      - name: postId
+        in: path
+        description: Post ID to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Post has been deleted
+          schema:
+            $ref: "#/definitions/Post"
+        401:
+          description: Unauthenticated
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Action is unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Post not found
+          schema:
+            $ref: "#/definitions/Error"
+  /me:
+    get:
+      tags:
+      - users
+      summary: Get current user
+      operationId: getcurrentUser
+      description: Get current user
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/User"
+        401:
+          description: Unauthenticated
+          schema:
+            $ref: "#/definitions/Error"
+  /users:
+    get:
+      tags:
+      - users
+      summary: Get users list
+      operationId: getUsers
+      description: Get users list searched by query with offset and limit.
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      parameters:
+      - in: query
+        name: offset
+        description: Number of users to skip for pagination
+        type: integer
+        format: int32
+        minimum: 0
+      - in: query
+        name: limit
+        description: Maximum number of users to return
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 100
+      - in: query
+        name: q
+        description: Search string
+        type: string
+      responses:
+        200:
+          description: Results
+          schema:
+            $ref: "#/definitions/Users"
+        401:
+          description: Unauthenticated
+          schema:
+            $ref: "#/definitions/Error"
+        422:
+          description: Invalid data supplied
+          schema:
+            $ref: "#/definitions/Error"
+  /users/{userId}:
+    get:
+      tags:
+      - users
+      summary: Find user by ID
+      operationId: getUserById
+      description: Returns a single user
+      produces:
+      - application/json
+      security:
+        - Bearer: []
+      parameters:
+      - name: userId
+        in: path
+        description: ID of user to return
+        required: true
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Post"
+        401:
+          description: Unauthenticated
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Post not found
+          schema:
+            $ref: "#/definitions/Error"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Post:
+    type: object
+    required:
+    - id
+    - attributes
+    - links
+    properties:
+      id:
+        type: integer
+        example: 1001
+      attributes:
+        type: object
+        properties: 
+          user_id:
+            type: integer
+            example: 1
+          title:
+            type: string
+            example: "Laboriosam ullam beatae molestias est nisi ut voluptas."
+          body:
+            type: string
+            example: "Occaecati dolorem dolorum ut repellendus tempora. Impedit consequatur saepe voluptas eum doloribus nulla. Rerum architecto fugiat inventore id adipisci.\n\nUt voluptate enim reiciendis dicta cupiditate sunt. Et ab atque sit eos incidunt. Ducimus eligendi beatae corporis illum dolor eum illo. Id dolor aspernatur et rerum sunt quae.\n\nEa omnis omnis ut ut. Labore illo et suscipit iusto et ullam. Dolorum sunt facilis ea molestiae eum tempora. Explicabo dolorum molestias dolor hic non et."
+          created_at:
+            type: string
+            example: "2018-01-01T12:00:00+00:00"
+          updated_at:
+            type: string
+            example: "2018-01-01T12:00:00+00:00"
+      links:
+        type: object
+        properties:
+          self:
+            $ref: "#/definitions/Link"
+          update:
+            $ref: "#/definitions/Link"
+          delete:
+            $ref: "#/definitions/Link"
+  Posts:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/Post"
+      links:
+        type: object
+        properties:
+          self:
+            $ref: "#/definitions/Link"
+          create:
+            $ref: "#/definitions/Link"
+      meta:
+        type: object
+        properties:
+          overal:
+            type: integer
+            example: 1000
+          offset:
+            type: integer
+            example: 100
+          limit:
+            type: integer
+            example: 50
+          q:
+            type: string
+            example: "lorem ipsum"
+  PostData:
+    type: object
+    required:
+    - title
+    - body
+    properties:
+      title:
+        type: string
+        example: "Laboriosam ullam beatae molestias est nisi ut voluptas."
+      body:
+        type: string
+        example: "Occaecati dolorem dolorum ut repellendus tempora. Impedit consequatur saepe voluptas eum doloribus nulla. Rerum architecto fugiat inventore id adipisci.\n\nUt voluptate enim reiciendis dicta cupiditate sunt. Et ab atque sit eos incidunt. Ducimus eligendi beatae corporis illum dolor eum illo. Id dolor aspernatur et rerum sunt quae.\n\nEa omnis omnis ut ut. Labore illo et suscipit iusto et ullam. Dolorum sunt facilis ea molestiae eum tempora. Explicabo dolorum molestias dolor hic non et."
+  Users:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/User"
+      links:
+        type: object
+        properties:
+          self:
+            $ref: "#/definitions/Link"
+      meta:
+        type: object
+        properties:
+          overal:
+            type: integer
+            example: 1000
+          offset:
+            type: integer
+            example: 100
+          limit:
+            type: integer
+            example: 50
+          q:
+            type: string
+            example: "lorem ipsum"
+  User:
+    type: object
+    required:
+    - id
+    - attributes
+    properties:
+      id:
+        type: integer
+        example: 101
+      attributes:
+        type: object
+        properties: 
+          name:
+            type: string
+            example: "Viacheslav Ostrovskiy"
+          email:
+            type: string
+            example: "chelout@gmail.com"
+          api_token:
+            type: string
+            example: "cOyZo00AXop4Ldl9pg5Yg57i5pKO8DbYvosAwk7iidvAojIX2bgya8eqUq1a"
+          created_at:
+            type: string
+            example: "2018-01-01T12:00:00+00:00"
+          updated_at:
+            type: string
+            example: "2018-01-01T12:00:00+00:00"
+      links:
+        type: object
+        properties:
+          self:
+            $ref: "#/definitions/Link"
+  Link:
+    type: object
+    properties:
+      method:
+        type: string
+        example: "get"
+      action:
+        type: string
+        example: "http://sample-api.test/api/users"
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+        example: "Server Error"
