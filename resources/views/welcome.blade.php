@@ -13,7 +13,7 @@
     </style>
   </head>
   <body>
-    <redoc spec-url='/swagger-1.0.0.json'></redoc>
+    <redoc spec-url='/openapi.json'></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
   </body>
 </html>
