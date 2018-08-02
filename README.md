@@ -1,4 +1,4 @@
-# sample-laravel-api
+# Sample Laravel API
 Sample Laravel app api implementation 
 
 ## Installation
@@ -40,5 +40,6 @@ cd docker \
     && docker-compose exec workspace php artisan key:generate \
     && docker-compose exec workspace php artisan route:cache \
     && docker-compose exec workspace php artisan config:cache \
-    && docker-compose exec workspace php artisan migrate --seed
+    && docker-compose exec workspace php artisan migrate --seed \
+    && docker-compose exec workspace php vendor/bin/openapi routes app -o public/openapi.json -b bootstrap/constants.php
 ```
