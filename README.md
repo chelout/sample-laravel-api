@@ -1,4 +1,9 @@
 # Sample Laravel API
+
+[![Release](https://img.shields.io/github/release/chelout/sample-laravel-api.svg)](https://github.com/chelout/sample-laravel-api)
+[![Downloads](https://img.shields.io/github/downloads/chelout/sample-laravel-api/total.svg)](https://github.com/chelout/sample-laravel-api)
+[![License](https://img.shields.io/github/license/chelout/sample-laravel-api.svg)](https://github.com/chelout/sample-laravel-api/blob/master/LICENSE)
+
 Sample Laravel app api implementation 
 
 ## Installation
