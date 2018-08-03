@@ -601,4 +601,4 @@ Route::put('/posts/{post}', 'PostController@update')->name('api.posts.update');
  */
 Route::delete('/posts/{post}', 'PostController@destroy')->name('api.posts.destroy');
 
-Route::fallback('FallbackController')->name('fallback');
+Route::fallback('FallbackController')->name('api.fallback');
