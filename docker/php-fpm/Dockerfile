@@ -87,15 +87,12 @@ RUN if [ ${INSTALL_OPCACHE} = true ]; then \
 # Copy opcache configration
 COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
-###########################################################################
-# Mysqli Modifications:
-###########################################################################
+# Install the PHP pdo_mysql extention
+USER root
 
-ARG INSTALL_MYSQLI=false
+RUN docker-php-ext-install pdo_mysql
 
-RUN if [ ${INSTALL_MYSQLI} = true ]; then \
-    docker-php-ext-install mysqli \
-;fi
+USER laradock
 
 #
 #--------------------------------------------------------------------------
