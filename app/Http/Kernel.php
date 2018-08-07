@@ -33,6 +33,7 @@ class Kernel extends HttpKernel
             'accepts.json',
             'throttle:60,1',
             'bindings',
+            'cors',
             'auth:api',
         ],
     ];
