@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *          description="Action URL",
  *          title="Action URL",
- *          example="https://sample-api.test/api/posts/1001"
+ *          example="/api/posts/1001"
  *      ),
  * )
  */

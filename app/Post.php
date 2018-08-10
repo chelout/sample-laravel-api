@@ -35,7 +35,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ref="#/components/schemas/PostLinks"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="PostAttributes",
  *      description="Post data",
@@ -82,7 +82,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          example="2018-01-01T12:00:00+00:00"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="PostLinks",
  *      description="Post links",
@@ -110,7 +110,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ref="#/components/schemas/Link"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="PostsLinks",
  *      description="Posts list links",
@@ -131,7 +131,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ref="#/components/schemas/Link"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="PostsList",
  *      description="Posts list",
@@ -161,7 +161,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ref="#/components/schemas/Meta",
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="StorePostData",
  *      description="Post data",
@@ -185,7 +185,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          example="Post body"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="UpdatePostData",
  *      description="Post data",
@@ -208,7 +208,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          example="Post body",
  *      ),
  * )
- * 
+ *
  * @OA\RequestBody(
  *      request="StorePostData",
  *      description="Post data",
@@ -220,7 +220,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ),
  *      )
  * )
- * 
+ *
  * @OA\RequestBody(
  *      request="UpdatePostData",
  *      description="Post data",
@@ -231,7 +231,6 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ),
  *      )
  * )
- * 
  */
 class Post extends Model
 {
@@ -254,22 +253,4 @@ class Post extends Model
             'body' => 1,
         ],
     ];
-
-    public function getLinksAttribute()
-    {
-        return collect([
-            'self' => new Link([
-                'method' => 'get',
-                'action' => route('api.posts.show', $this->id),
-            ]),
-            'update' => new Link([
-                'method' => 'put',
-                'action' => route('api.posts.update', $this->id),
-            ]),
-            'delete' => new Link([
-                'method' => 'delete',
-                'action' => route('api.posts.destroy', $this->id),
-            ]),
-        ]);
-    }
 }
