@@ -35,7 +35,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ref="#/components/schemas/UserLinks"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="UserAttributes",
  *      description="User data",
@@ -82,7 +82,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          example="2018-01-01T12:00:00+00:00"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="UserLinks",
  *      description="User links",
@@ -96,8 +96,8 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ref="#/components/schemas/Link"
  *      ),
  * )
- * 
-  * @OA\Schema(
+ *
+ * @OA\Schema(
  *      schema="UsersLinks",
  *      description="Users list links",
  *      title="Users link links",
@@ -110,7 +110,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  *          ref="#/components/schemas/Link"
  *      ),
  * )
- * 
+ *
  * @OA\Schema(
  *      schema="UsersList",
  *      description="Users list",
@@ -175,14 +175,4 @@ class User extends Authenticatable
             'email' => 1,
         ],
     ];
-
-    public function getLinksAttribute()
-    {
-        return collect([
-            'self' => new Link([
-                'method' => 'get',
-                'action' => route('api.users.show', $this->id),
-            ]),
-        ]);
-    }
 }
