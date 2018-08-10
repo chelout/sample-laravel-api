@@ -606,4 +606,38 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/posts/{post}', 'PostController@destroy')->name('api.posts.destroy');
 });
 
+/**
+ * @OA\Get(
+ *      path="/status",
+ *      tags={"system"},
+ *      summary="Get API status",
+ *      description="Get API status",
+ *      operationId="getStatus",
+ *      @OA\Response(
+ *          response=200,
+ *          description="Status object",
+ *          @OA\MediaType(
+ *              mediaType="application/json",
+ *              @OA\Schema(
+ *                  ref="#/components/schemas/Status"
+ *              ),
+ *          ),
+ *      ),
+ *      @OA\Response(
+ *          response=401,
+ *          description="Unauthenticated",
+ *          @OA\MediaType(
+ *              mediaType="application/json",
+ *              @OA\Schema(
+ *                 ref="#/components/schemas/Error401"
+ *              )
+ *          ),
+ *      ),
+ *      security={
+ *           {"bearerAuth": {}}
+ *      }
+ * )
+ */
+Route::get('/status', 'SystemStatusController')->name('api.status');
+
 Route::fallback('FallbackController')->name('api.fallback');
