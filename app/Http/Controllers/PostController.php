@@ -31,6 +31,7 @@ class PostController extends Controller
         $posts = Post::search($q)
             ->offset($offset)
             ->limit($limit)
+            ->orderByDesc('created_at')
             ->get();
 
         return new PostCollection($posts, [
